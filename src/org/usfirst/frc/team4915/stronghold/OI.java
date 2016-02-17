@@ -83,14 +83,26 @@ public class OI {
     public JoystickButton scalerReachDownButton;
     public JoystickButton scalerLiftButton;
 
-    public SendableChooser autonomousProgramChooser;
+    public SendableChooser autonomousStartingPosition = new SendableChooser();
+    public SendableChooser autonomousDefense = new SendableChooser();
 
 
     public OI() {
-        autonomousProgramChooser = new SendableChooser();
-        SmartDashboard.putData("Autonomous Program", autonomousProgramChooser);
-        autonomousProgramChooser.addDefault("Autonomous Turn", new AutoRotateDegrees(false, 90));
-        autonomousProgramChooser.addObject("Autonomous Just Drive", new MoveStraightPositionModeCommand(30));
+        SmartDashboard.putBoolean("Autonomous/Do Nothing", SmartDashboard.getBoolean("Autonomous/Do Nothing", false));
+        SmartDashboard.putBoolean("Autonomous/Use Vision", SmartDashboard.getBoolean("Autonomous/Use Vision", false));
+
+        autonomousStartingPosition.addObject("First (Far Left)", 1);
+        autonomousStartingPosition.addObject("Second", 2);
+        autonomousStartingPosition.addObject("Third", 3);
+        autonomousStartingPosition.addObject("Fourth", 4);
+        autonomousStartingPosition.addObject("Fifth", 5);
+        autonomousStartingPosition.addObject("Sixth (Far Right)", 6);
+        SmartDashboard.putData("Autonomous/Starting Position", autonomousStartingPosition);
+
+        for (Defense d : Defense.values()) {
+            autonomousDefense.addObject(d.getName(), d);
+        }
+        SmartDashboard.putData("Autonomous/Starting Defense", autonomousDefense);
 
         this.driveStick = new Joystick(DRIVE_STICK_PORT);
         this.aimStick = new Joystick(LAUNCHER_STICK_PORT);
