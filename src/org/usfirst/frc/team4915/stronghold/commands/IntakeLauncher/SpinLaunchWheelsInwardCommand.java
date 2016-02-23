@@ -17,6 +17,7 @@ public class SpinLaunchWheelsInwardCommand extends Command {
 
     @Override
     protected void execute() {
+        Robot.intakeLauncher.launcherSetIntakePosition();
         Robot.intakeLauncher.setSpeedIntake();
     }
 
